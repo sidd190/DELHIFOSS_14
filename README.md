@@ -4,6 +4,10 @@ Resources from the DelhiFOSS talk: start with two access-control flaws in a fict
 
 **A vulnerability list is the beginning. Follow the attacker, trace the system, and verify the controls.**
 
+## Try the live matrix
+
+**[Open the interactive demo](https://sidd190.github.io/DELHIFOSS_14/)** — edit the four losses or try the presets. It runs in your browser; no installation or account is needed.
+
 ## Explore the material
 
 - [Slides (PDF)](presentation/slides.pdf) and [browser slides](presentation/slides.html).
@@ -70,3 +74,5 @@ Edit the matrix or make a copy of the threat model. Start from the [exercises](e
 The audience slide source is [presentation/slides.source.json](presentation/slides.source.json). Run `python3 scripts/build_slides.py` after changing it. Diagrams are editable SVG files. To regenerate the model from its authoring JSON, see [threat-model/README.md](threat-model/README.md).
 
 Original examples and slides are MIT licensed. The bundled Precogly build and dependencies retain their own licenses and notices under `vendor/precogly/`.
+
+The live matrix is published from `docs/` through GitHub Pages. After editing `demo/matrix.html`, run `python3 scripts/build_demo.py` and commit the regenerated `docs/index.html`.
