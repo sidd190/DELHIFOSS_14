@@ -10,6 +10,11 @@
     "body": "<img class=\"intro-image\" src=\"assets/web/intro-user.png\" alt=\"About me: Siddharth Bansal. Intern at FOSS United; co-founder, FOSS USAR. Learner, builder, contributor.\">"
   },
   {
+    "title": "Your threat model has an opponent. Literally.",
+    "kind": "standard",
+    "body": "<h2>Your threat model has an opponent.<br>Literally.</h2><div class=\"meme-grid\"><article class=\"jensen-card\"><img class=\"portrait\" src=\"assets/web/jensen.jpg\" alt=\"Jensen Huang portrait\"><img class=\"cry-sticker\" src=\"assets/web/crying.svg\" alt=\"Crying reaction sticker\"><div class=\"speech\">“I should have created<br>a threat model.”</div></article><article class=\"apt-card\"><img src=\"assets/web/detective.svg\" alt=\"Generic fictional spy icon\"><strong>APT operator</strong><p>“Thanks for the<br>unmodelled trust boundary.”</p></article></div>"
+  },
+  {
     "title": "Two vulnerabilities. Which first?",
     "kind": "standard",
     "body": "<h2>Two vulnerabilities.<br>Which do I fix first?</h2><div class=\"cols\"><article><h3>Customer API</h3><p>Read an order.<br>Change its delivery address.</p><p class=\"danger\">Missing ownership checks.</p></article><article><h3>Admin panel</h3><p>Manage orders.<br>Perform privileged operations.</p><p class=\"danger\">Missing permission checks.</p></article></div>"
