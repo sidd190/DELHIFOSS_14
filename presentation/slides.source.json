@@ -2,7 +2,12 @@
   {
     "title": "Your Threat Model Has an Opponent",
     "kind": "title",
-    "body": "<h1>Your threat model<br>has an <em>opponent.</em></h1>"
+    "body": "<h1>Your threat model<br>has an <em>opponent.</em></h1><div class=\"title-route\"><article class=\"opponent-node\"><b>ATTACKER</b><p>Chooses a route.</p></article><span>→</span><article><b>CUSTOMER API</b><p>Enforces permission.</p></article><span>→</span><article><b>ORDERS DB</b><p>Holds what matters.</p></article></div><p class=\"title-question\">Which route still works after your fix?</p>"
+  },
+  {
+    "title": "Your threat model has an opponent. Literally.",
+    "kind": "standard",
+    "body": "<h2>Your threat model has an opponent.<br>Literally.</h2><div class=\"meme-grid\"><article class=\"jensen-card\"><span class=\"meme-label\">MEME</span><img class=\"portrait\" src=\"assets/web/jensen.jpg\" alt=\"Jensen Huang portrait\"><img class=\"cry-sticker\" src=\"assets/web/crying.svg\" alt=\"Crying reaction sticker\"><div class=\"speech\">“I should have created<br>a threat model.”</div></article><article class=\"apt-card\"><img src=\"assets/web/detective.svg\" alt=\"Generic fictional spy icon\"><strong>APT operator</strong><p>“Thanks for the<br>unmodelled trust boundary.”</p></article></div>"
   },
   {
     "title": "Two vulnerabilities. Which first?",
@@ -15,19 +20,14 @@
     "body": "<h2>What crosses each boundary?</h2><img class=\"diagram\" src=\"../architecture/shop-app.svg\" alt=\"Shop data-flow diagram with separate requests and responses across three trust zones\">"
   },
   {
-    "title": "One weakness. Two consequences.",
-    "kind": "standard",
-    "body": "<h2>One weakness. Two consequences.</h2><img class=\"diagram\" src=\"assets/read-write-impact.svg\" alt=\"A missing ownership check can expose an order or allow changing another customer’s delivery address\">"
-  },
-  {
     "title": "An identity is not a permission",
     "kind": "quote-slide",
     "body": "<blockquote>An identity<br>is not a <em>permission.</em></blockquote>"
   },
   {
-    "title": "The attacker gets a choice too",
+    "title": "Put yourself in the attacker’s shoes",
     "kind": "standard",
-    "body": "<h2>The attacker gets a choice too.</h2><img class=\"diagram\" src=\"assets/attack-paths.svg\" alt=\"An attacker can pursue customer orders through either the customer API or administrative operations\">"
+    "body": "<h2>Put yourself in the attacker’s shoes.</h2><div class=\"attacker-layout\"><img class=\"shoes-photo\" src=\"assets/web/othershoes.jpg\" alt=\"Walking in someone else’s shoes meme supplied by the presenter\"><div class=\"attacker-choice\"><div class=\"attacker-chip\">ATTACKER</div><div class=\"branch-arrows\">↙ <span>↘</span></div><div class=\"route-pair\"><article><h3>Customer API</h3><p>Read an order.<br>Redirect a delivery.</p></article><article><h3>Admin panel</h3><p>Reach privileged<br>operations.</p></article></div><div class=\"choice-question\">Which route still works?</div></div></div>"
   },
   {
     "title": "Loss to the shop",
@@ -50,24 +50,14 @@
     "body": "<h2>Four questions for the threat model</h2><div class=\"four-questions\"><article><b>01</b><p>What are we working on?</p></article><article><b>02</b><p>What can go wrong?</p></article><article><b>03</b><p>What are we going to do about it?</p></article><article><b>04</b><p>Did we do a good enough job?</p></article></div>"
   },
   {
+    "title": "Meet OWASP Precogly",
+    "kind": "standard",
+    "body": "<h2>Meet OWASP Precogly.</h2><div class=\"intro-grid\"><div class=\"tool-copy\"><h3>A canvas.<br>With an argument<br>attached.</h3><div>Architecture + flows</div><div>Threats + controls</div><div>Save + review + revise</div></div><div class=\"photo-meme\"><div class=\"photo-row\"><div class=\"dragon-crop\"><img src=\"assets/web/dragon-user.webp\" alt=\"Dragon from the supplied meme\"></div><strong>OWASP<br>Precogly</strong></div><div class=\"photo-row\"><img class=\"dog-photo\" src=\"assets/web/dog.jpg\" alt=\"Labrador dog photograph\"><strong>OWASP<br>Threat Dragon</strong></div></div></div>"
+  },
+  {
     "title": "The model I can inspect",
     "kind": "standard",
     "body": "<h2>The model I can inspect</h2><div class=\"screenshotwrap\"><img src=\"../evidence/precogly-diagram-focus.png\" alt=\"Actual Precogly shop model with customer and admin request/response paths\"></div>"
-  },
-  {
-    "title": "What happens to an unauthorized edit?",
-    "kind": "standard",
-    "body": "<h2>What happens to an unauthorized edit?</h2><img class=\"diagram\" src=\"assets/address-check.svg\" alt=\"Sequence of Alice attempting to edit Bob’s address: ownership is checked and request rejected without a database write\">"
-  },
-  {
-    "title": "Make the control testable",
-    "kind": "standard",
-    "body": "<h2>Make the control testable.</h2><table class=\"checks-table\"><tr><th>Attempt</th><th>Expected result</th></tr><tr><td>Read / edit my eligible order</td><td class=\"allow\">Allow</td></tr><tr><td>Read / edit someone else’s order</td><td>Deny · no disclosure or change</td></tr><tr><td>Edit after dispatch</td><td>Deny · address unchanged</td></tr><tr><td>Send <code>role=admin</code> as a customer</td><td>Deny · check trusted permission</td></tr></table><p class=\"test-callout\">Remove the ownership guard.<br>The cross-user tests must fail.</p>"
-  },
-  {
-    "title": "More services. Same security questions.",
-    "kind": "standard",
-    "body": "<h2>More services. Same security questions.</h2><img class=\"diagram\" src=\"assets/growing-shop.svg\" alt=\"A possible shop extension: web and mobile customer requests and administrative requests reach an order service that enforces ownership or privileged permissions and order-state rules\">"
   },
   {
     "title": "The argument is the threat model",

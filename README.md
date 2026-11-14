@@ -76,3 +76,7 @@ The audience slide source is [presentation/slides.source.json](presentation/slid
 Original examples and slides are MIT licensed. The bundled Precogly build and dependencies retain their own licenses and notices under `vendor/precogly/`.
 
 The live matrix is published from `docs/` through GitHub Pages. After editing `demo/matrix.html`, run `python3 scripts/build_demo.py` and commit the regenerated `docs/index.html`.
+
+Web photographs and illustrations retain their Creative Commons licenses; see [asset credits](presentation/ASSET-CREDITS.md). The meme captions are fictional.
+
+The current deck uses a hands-on Precogly walkthrough after the tool introduction. The meme panels use credited web assets and fictional captions.
