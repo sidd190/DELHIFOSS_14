@@ -1,0 +1,82 @@
+[
+  {
+    "title": "Your Threat Model Has an Opponent",
+    "kind": "title",
+    "body": "<h1>Your threat model<br>has an <em>opponent.</em></h1>"
+  },
+  {
+    "title": "Two vulnerabilities. Which first?",
+    "kind": "standard",
+    "body": "<h2>Two vulnerabilities.<br>Which do I fix first?</h2><div class=\"cols\"><article><h3>Customer API</h3><p>Read an order.<br>Change its delivery address.</p><p class=\"danger\">Missing ownership checks.</p></article><article><h3>Admin panel</h3><p>Manage orders.<br>Perform privileged operations.</p><p class=\"danger\">Missing permission checks.</p></article></div>"
+  },
+  {
+    "title": "What crosses each boundary?",
+    "kind": "standard",
+    "body": "<h2>What crosses each boundary?</h2><img class=\"diagram\" src=\"../architecture/shop-app.svg\" alt=\"Shop data-flow diagram with separate requests and responses across three trust zones\">"
+  },
+  {
+    "title": "One weakness. Two consequences.",
+    "kind": "standard",
+    "body": "<h2>One weakness. Two consequences.</h2><img class=\"diagram\" src=\"assets/read-write-impact.svg\" alt=\"A missing ownership check can expose an order or allow changing another customer’s delivery address\">"
+  },
+  {
+    "title": "An identity is not a permission",
+    "kind": "quote-slide",
+    "body": "<blockquote>An identity<br>is not a <em>permission.</em></blockquote>"
+  },
+  {
+    "title": "The attacker gets a choice too",
+    "kind": "standard",
+    "body": "<h2>The attacker gets a choice too.</h2><img class=\"diagram\" src=\"assets/attack-paths.svg\" alt=\"An attacker can pursue customer orders through either the customer API or administrative operations\">"
+  },
+  {
+    "title": "Loss to the shop",
+    "kind": "standard",
+    "body": "<h2>Loss to the shop</h2><table class=\"matrix\"><thead><tr><th></th><th>Attack API</th><th>Attack admin</th></tr></thead><tbody><tr><th>Fix API</th><td>2</td><td>8</td></tr><tr><th>Harden admin</th><td>4</td><td>5</td></tr></tbody></table><p class=\"matrix-note\">The attacker wants a larger number.<br>I want a smaller one.</p>"
+  },
+  {
+    "title": "Cross out the weaker attack",
+    "kind": "standard",
+    "body": "<h2>Cross out the weaker attack.</h2><table class=\"matrix\"><thead><tr><th></th><th class=\"eliminated\">Attack API</th><th>Attack admin</th></tr></thead><tbody><tr><th>Fix API</th><td class=\"eliminated\">2</td><td>8</td></tr><tr><th>Harden admin</th><td class=\"eliminated\">4</td><td class=\"chosen\">5</td></tr></tbody></table><p class=\"matrix-note\"><strong>Attack API is strictly dominated.</strong><br>My response: harden admin.</p>"
+  },
+  {
+    "title": "The decision in code",
+    "kind": "standard",
+    "body": "<h2>The decision in code</h2><pre class=\"terminal\">$ python3 game-theory/payoff.py\n\nAttack API is strictly dominated by Attack admin.\n\nRow worst cases: 8, 5\nChoose: Harden admin\nWorst-case loss: 5</pre>"
+  },
+  {
+    "title": "Four questions for the threat model",
+    "kind": "standard",
+    "body": "<h2>Four questions for the threat model</h2><div class=\"four-questions\"><article><b>01</b><p>What are we working on?</p></article><article><b>02</b><p>What can go wrong?</p></article><article><b>03</b><p>What are we going to do about it?</p></article><article><b>04</b><p>Did we do a good enough job?</p></article></div>"
+  },
+  {
+    "title": "The model I can inspect",
+    "kind": "standard",
+    "body": "<h2>The model I can inspect</h2><div class=\"screenshotwrap\"><img src=\"../evidence/precogly-diagram-focus.png\" alt=\"Actual Precogly shop model with customer and admin request/response paths\"></div>"
+  },
+  {
+    "title": "What happens to an unauthorized edit?",
+    "kind": "standard",
+    "body": "<h2>What happens to an unauthorized edit?</h2><img class=\"diagram\" src=\"assets/address-check.svg\" alt=\"Sequence of Alice attempting to edit Bob’s address: ownership is checked and request rejected without a database write\">"
+  },
+  {
+    "title": "Make the control testable",
+    "kind": "standard",
+    "body": "<h2>Make the control testable.</h2><table class=\"checks-table\"><tr><th>Attempt</th><th>Expected result</th></tr><tr><td>Read / edit my eligible order</td><td class=\"allow\">Allow</td></tr><tr><td>Read / edit someone else’s order</td><td>Deny · no disclosure or change</td></tr><tr><td>Edit after dispatch</td><td>Deny · address unchanged</td></tr><tr><td>Send <code>role=admin</code> as a customer</td><td>Deny · check trusted permission</td></tr></table><p class=\"test-callout\">Remove the ownership guard.<br>The cross-user tests must fail.</p>"
+  },
+  {
+    "title": "More services. Same security questions.",
+    "kind": "standard",
+    "body": "<h2>More services. Same security questions.</h2><img class=\"diagram\" src=\"assets/growing-shop.svg\" alt=\"A possible shop extension: web and mobile customer requests and administrative requests reach an order service that enforces ownership or privileged permissions and order-state rules\">"
+  },
+  {
+    "title": "The argument is the threat model",
+    "kind": "quote-slide dark-quote",
+    "body": "<blockquote>The argument<br>is the <em>threat model.</em></blockquote>"
+  },
+  {
+    "title": "Secure the path, not just the finding",
+    "kind": "standard",
+    "body": "<h2 class=\"closing\">A vulnerability list<br>is the <em>beginning.</em></h2><div class=\"takeaways\"><article><b>Follow the attacker.</b><p>Which route remains useful?</p></article><article><b>Trace the system.</b><p>Where must permission be checked?</p></article><article><b>Verify the control.</b><p>What test would catch its removal?</p></article></div><a class=\"resource-link\" href=\"https://github.com/sidd190/DELHIFOSS_14\">github.com/sidd190/DELHIFOSS_14</a>"
+  }
+]

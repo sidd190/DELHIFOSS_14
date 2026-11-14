@@ -1,0 +1,13 @@
+{
+  "matrix": [
+    [
+      1,
+      6
+    ],
+    [
+      7,
+      2
+    ]
+  ],
+  "assumption": "Neither attack is strictly dominated; no pure saddle point."
+}

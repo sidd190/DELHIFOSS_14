@@ -1,0 +1,13 @@
+{
+  "matrix": [
+    [
+      2,
+      8
+    ],
+    [
+      4,
+      5
+    ]
+  ],
+  "assumption": "Attack API is strictly dominated by attack admin. Harden admin is the defender best response."
+}

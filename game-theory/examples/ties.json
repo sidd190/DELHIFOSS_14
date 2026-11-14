@@ -1,0 +1,13 @@
+{
+  "matrix": [
+    [
+      5,
+      5
+    ],
+    [
+      5,
+      5
+    ]
+  ],
+  "assumption": "Equal payoffs are not strict dominance."
+}

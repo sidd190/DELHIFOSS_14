@@ -1,0 +1,30 @@
+[
+  {
+    "id": "T1",
+    "targetId": "api",
+    "name": "T1 · Customer reads or redirects another order",
+    "category": "tampering",
+    "description": "Alice obtains Bob’s order ID. Missing object-level authorization on GET exposes his order; missing authorization on PATCH lets her change his delivery address before dispatch and potentially redirect the parcel. Information disclosure and tampering are two consequences of the same authorization weakness. This is stipulated in the teaching scenario.",
+    "targetType": "component",
+    "severity": "high",
+    "status": "mitigate",
+    "decisionRationale": "Proposed control for a fictional system; executable sketches are not deployment evidence.",
+    "createdAt": "2026-11-11T00:00:00Z",
+    "control": "C1 · Authorize reads and address changes",
+    "mitigation": "Check trusted caller ownership for both GET and PATCH. Accept only delivery_address and only while the order is processing; reject writes once dispatch begins. TEST: Alice may read/update A-101 before dispatch, but cannot read or change B-202. A rejected write leaves all data unchanged. Removing the guard must break both cross-owner regression tests. Production must enforce status and write atomically. See tests/test_authorization.py."
+  },
+  {
+    "id": "T2",
+    "targetId": "admin",
+    "name": "T2 · Customer invokes an admin operation",
+    "category": "elevation-of-privilege",
+    "description": "A normal customer calls an administrative backend operation directly and supplies role=admin in the body. If the operation relies on UI hiding or client role claims, it grants administrative access. Impact: unauthorized changes and access. Opening scenario assumes weak access control.",
+    "targetType": "component",
+    "severity": "high",
+    "status": "mitigate",
+    "decisionRationale": "Proposed control for a fictional system; executable sketches are not deployment evidence.",
+    "createdAt": "2026-11-11T00:00:00Z",
+    "control": "C2 · Check trusted permissions per admin operation",
+    "mitigation": "Validate identity and required permission at every privileged operation; use trusted server permissions, deny by default. TEST: a customer is denied even with role=admin; an authorized operator succeeds. Remove the guard and confirm the negative test fails. Network restriction and MFA are additional layers."
+  }
+]

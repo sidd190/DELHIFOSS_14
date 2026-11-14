@@ -1,0 +1,10 @@
+LOSS TO THE SHOP
+
+                       Attack API     Attack admin
+Fix API                         2                8
+Harden admin                    4                5
+
+Attack API is strictly dominated by Attack admin.
+Row worst cases: 8, 5
+Choose: Harden admin
+Worst-case loss: 5

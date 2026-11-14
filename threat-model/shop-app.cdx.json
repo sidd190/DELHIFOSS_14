@@ -1,0 +1,594 @@
+{
+  "specFormat": "CycloneDX",
+  "specVersion": "2.0",
+  "serialNumber": "urn:uuid:5f8653f7-0bd8-44d6-b8b1-6a64efcd8f2b",
+  "version": 1,
+  "metadata": {
+    "timestamp": "2026-11-14T04:59:04.620Z",
+    "tools": {
+      "components": [
+        {
+          "type": "application",
+          "name": "Precogly Guest Editor",
+          "version": "1.0.0"
+        }
+      ]
+    }
+  },
+  "blueprints": [
+    {
+      "bom-ref": "blueprint-shop-application-1",
+      "name": "Shop application",
+      "modelTypes": [
+        "data-flow"
+      ],
+      "description": "Fictional shop: customers read their own orders and may change the delivery address before dispatch. Administrators perform privileged operations. Request and response flows are modeled separately.",
+      "zones": [
+        {
+          "bom-ref": "zone-external-clients-1",
+          "name": "External clients",
+          "type": "trust",
+          "trustLevel": 0
+        },
+        {
+          "bom-ref": "zone-application-services-2",
+          "name": "Application services",
+          "type": "trust",
+          "trustLevel": 50
+        },
+        {
+          "bom-ref": "zone-restricted-data-3",
+          "name": "Restricted data",
+          "type": "trust",
+          "trustLevel": 75
+        }
+      ],
+      "assets": [
+        {
+          "bom-ref": "asset-customer-1",
+          "name": "Customer",
+          "type": "actor",
+          "zone": "zone-external-clients-1"
+        },
+        {
+          "bom-ref": "asset-administrator-2",
+          "name": "Administrator",
+          "type": "actor",
+          "zone": "zone-external-clients-1"
+        },
+        {
+          "bom-ref": "asset-customer-api-3",
+          "name": "Customer API",
+          "type": "component",
+          "description": "Authenticated order reads and delivery-address changes before dispatch. Every read and write requires order ownership; updates allow only delivery_address.",
+          "zone": "zone-application-services-2"
+        },
+        {
+          "bom-ref": "asset-admin-panel-api-4",
+          "name": "Admin panel / API",
+          "type": "component",
+          "description": "Privileged order operations. Each backend operation must check trusted administrative permission.",
+          "zone": "zone-application-services-2"
+        },
+        {
+          "bom-ref": "asset-orders-db-5",
+          "name": "Orders DB",
+          "type": "data-store",
+          "description": "Order owner, delivery address, dispatch status and order details. Protect confidentiality and delivery integrity.",
+          "zone": "zone-restricted-data-3"
+        }
+      ],
+      "flows": [
+        {
+          "bom-ref": "flow-get-patch-order-1",
+          "source": "asset-customer-1",
+          "destination": "asset-customer-api-3",
+          "type": "data",
+          "name": "GET / PATCH order",
+          "description": "Authenticated request carries order ID. PATCH carries delivery_address; caller identity comes from trusted middleware."
+        },
+        {
+          "bom-ref": "flow-order-update-result-2",
+          "source": "asset-customer-api-3",
+          "destination": "asset-customer-1",
+          "type": "data",
+          "name": "Order / update result",
+          "description": "Authorized order data, accepted address change or rejection. Cross-owner operations must disclose no order data and perform no write."
+        },
+        {
+          "bom-ref": "flow-read-update-3",
+          "source": "asset-customer-api-3",
+          "destination": "asset-orders-db-5",
+          "type": "data",
+          "name": "Read / update",
+          "description": "Read owner/status; enforce ownership on read and write. Address update allowed only before dispatch; production requires atomic status/write handling."
+        },
+        {
+          "bom-ref": "flow-order-write-result-4",
+          "source": "asset-orders-db-5",
+          "destination": "asset-customer-api-3",
+          "type": "data",
+          "name": "Order / write result",
+          "description": "Return stored owner, status and address or the result of an authorized update."
+        },
+        {
+          "bom-ref": "flow-administrative-request-5",
+          "source": "asset-administrator-2",
+          "destination": "asset-admin-panel-api-4",
+          "type": "data",
+          "name": "Administrative request",
+          "description": "Trusted authenticated operator requests a privileged operation."
+        },
+        {
+          "bom-ref": "flow-administrative-response-6",
+          "source": "asset-admin-panel-api-4",
+          "destination": "asset-administrator-2",
+          "type": "data",
+          "name": "Administrative response",
+          "description": "Result only after the required permission has been checked."
+        },
+        {
+          "bom-ref": "flow-administrative-query-7",
+          "source": "asset-admin-panel-api-4",
+          "destination": "asset-orders-db-5",
+          "type": "data",
+          "name": "Administrative query",
+          "description": "Authorized read or write scoped to the administrative operation."
+        },
+        {
+          "bom-ref": "flow-query-result-8",
+          "source": "asset-orders-db-5",
+          "destination": "asset-admin-panel-api-4",
+          "type": "data",
+          "name": "Query result",
+          "description": "Results returned to the authorized administrative service."
+        }
+      ],
+      "dataSets": [
+        {
+          "bom-ref": "dataset-customer-orders-1",
+          "name": "Customer orders",
+          "description": "Order ownership, delivery address and dispatch state; confidentiality and integrity matter. Fictional data only.",
+          "classification": "confidential"
+        }
+      ],
+      "assumptions": [
+        {
+          "bom-ref": "A1",
+          "description": "Customers are authenticated; identity middleware is assumed correct for this exercise.",
+          "validity": "unconfirmed",
+          "topic": "authentication"
+        },
+        {
+          "bom-ref": "A2",
+          "description": "Admin reachability is unknown and must be checked; not assumed internal-only.",
+          "validity": "unconfirmed",
+          "topic": "exposure"
+        }
+      ],
+      "visualizations": [
+        {
+          "type": "precogly-dfd",
+          "name": "Shop application",
+          "data": {
+            "nodes": [
+              {
+                "id": "external",
+                "type": "trustZone",
+                "position": {
+                  "x": 0,
+                  "y": 0
+                },
+                "data": {
+                  "label": "External clients",
+                  "description": "",
+                  "trustLevel": 0
+                },
+                "style": {
+                  "width": 250,
+                  "height": 620
+                }
+              },
+              {
+                "id": "application",
+                "type": "trustZone",
+                "position": {
+                  "x": 310,
+                  "y": 0
+                },
+                "data": {
+                  "label": "Application services",
+                  "description": "",
+                  "trustLevel": 50
+                },
+                "style": {
+                  "width": 580,
+                  "height": 620
+                }
+              },
+              {
+                "id": "data",
+                "type": "trustZone",
+                "position": {
+                  "x": 960,
+                  "y": 0
+                },
+                "data": {
+                  "label": "Restricted data",
+                  "description": "",
+                  "trustLevel": 75
+                },
+                "style": {
+                  "width": 260,
+                  "height": 620
+                }
+              },
+              {
+                "id": "customer",
+                "type": "humanActor",
+                "position": {
+                  "x": 45,
+                  "y": 100
+                },
+                "data": {
+                  "label": "Customer",
+                  "description": ""
+                },
+                "style": {
+                  "width": 170,
+                  "height": 95
+                },
+                "parentId": "external"
+              },
+              {
+                "id": "operator",
+                "type": "humanActor",
+                "position": {
+                  "x": 45,
+                  "y": 340
+                },
+                "data": {
+                  "label": "Administrator",
+                  "description": ""
+                },
+                "style": {
+                  "width": 170,
+                  "height": 95
+                },
+                "parentId": "external"
+              },
+              {
+                "id": "api",
+                "type": "process",
+                "position": {
+                  "x": 55,
+                  "y": 100
+                },
+                "data": {
+                  "label": "Customer API",
+                  "description": "Authenticated order reads and delivery-address changes before dispatch. Every read and write requires order ownership; updates allow only delivery_address."
+                },
+                "style": {
+                  "width": 170,
+                  "height": 95
+                },
+                "parentId": "application"
+              },
+              {
+                "id": "admin",
+                "type": "process",
+                "position": {
+                  "x": 55,
+                  "y": 340
+                },
+                "data": {
+                  "label": "Admin panel / API",
+                  "description": "Privileged order operations. Each backend operation must check trusted administrative permission."
+                },
+                "style": {
+                  "width": 170,
+                  "height": 95
+                },
+                "parentId": "application"
+              },
+              {
+                "id": "orders",
+                "type": "datastore",
+                "position": {
+                  "x": 45,
+                  "y": 220
+                },
+                "data": {
+                  "label": "Orders DB",
+                  "description": "Order owner, delivery address, dispatch status and order details. Protect confidentiality and delivery integrity."
+                },
+                "style": {
+                  "width": 170,
+                  "height": 95
+                },
+                "parentId": "data"
+              }
+            ],
+            "edges": [
+              {
+                "id": "F1",
+                "source": "customer",
+                "target": "api",
+                "type": "dataFlow",
+                "sourceHandle": "right-source",
+                "targetHandle": "left-target",
+                "data": {
+                  "label": "GET / PATCH order",
+                  "description": "Authenticated request carries order ID. PATCH carries delivery_address; caller identity comes from trusted middleware."
+                }
+              },
+              {
+                "id": "F2",
+                "source": "api",
+                "target": "customer",
+                "type": "dataFlow",
+                "sourceHandle": "top-source",
+                "targetHandle": "top-target",
+                "data": {
+                  "label": "Order / update result",
+                  "description": "Authorized order data, accepted address change or rejection. Cross-owner operations must disclose no order data and perform no write."
+                }
+              },
+              {
+                "id": "F3",
+                "source": "api",
+                "target": "orders",
+                "type": "dataFlow",
+                "sourceHandle": "right-source",
+                "targetHandle": "left-target",
+                "data": {
+                  "label": "Read / update",
+                  "description": "Read owner/status; enforce ownership on read and write. Address update allowed only before dispatch; production requires atomic status/write handling."
+                }
+              },
+              {
+                "id": "F4",
+                "source": "orders",
+                "target": "api",
+                "type": "dataFlow",
+                "sourceHandle": "top-source",
+                "targetHandle": "top-target",
+                "data": {
+                  "label": "Order / write result",
+                  "description": "Return stored owner, status and address or the result of an authorized update."
+                }
+              },
+              {
+                "id": "F5",
+                "source": "operator",
+                "target": "admin",
+                "type": "dataFlow",
+                "sourceHandle": "right-source",
+                "targetHandle": "left-target",
+                "data": {
+                  "label": "Administrative request",
+                  "description": "Trusted authenticated operator requests a privileged operation."
+                }
+              },
+              {
+                "id": "F6",
+                "source": "admin",
+                "target": "operator",
+                "type": "dataFlow",
+                "sourceHandle": "bottom-source",
+                "targetHandle": "bottom-target",
+                "data": {
+                  "label": "Administrative response",
+                  "description": "Result only after the required permission has been checked."
+                }
+              },
+              {
+                "id": "F7",
+                "source": "admin",
+                "target": "orders",
+                "type": "dataFlow",
+                "sourceHandle": "right-source",
+                "targetHandle": "left-target",
+                "data": {
+                  "label": "Administrative query",
+                  "description": "Authorized read or write scoped to the administrative operation."
+                }
+              },
+              {
+                "id": "F8",
+                "source": "orders",
+                "target": "admin",
+                "type": "dataFlow",
+                "sourceHandle": "bottom-source",
+                "targetHandle": "bottom-target",
+                "data": {
+                  "label": "Query result",
+                  "description": "Results returned to the authorized administrative service."
+                }
+              }
+            ],
+            "notationStyle": "yourdon",
+            "systemContext": {
+              "session": {
+                "facilitator": "Presenter",
+                "participants": [],
+                "meetingDate": ""
+              },
+              "systemInfo": {
+                "description": "Fictional shop: customers read their own orders and may change the delivery address before dispatch. Administrators perform privileged operations. Request and response flows are modeled separately.",
+                "criticality": "high"
+              },
+              "dataAssets": [
+                {
+                  "id": "orders-data",
+                  "name": "Customer orders",
+                  "description": "Order ownership, delivery address and dispatch state; confidentiality and integrity matter. Fictional data only.",
+                  "classification": "confidential",
+                  "confidentiality": "high",
+                  "integrity": "high",
+                  "availability": "medium",
+                  "complianceTags": [],
+                  "dataSensitivity": []
+                }
+              ],
+              "assumptions": [
+                {
+                  "id": "A1",
+                  "description": "Customers are authenticated; identity middleware is assumed correct for this exercise.",
+                  "validity": "unconfirmed",
+                  "topics": [
+                    "authentication"
+                  ]
+                },
+                {
+                  "id": "A2",
+                  "description": "Admin reachability is unknown and must be checked; not assumed internal-only.",
+                  "validity": "unconfirmed",
+                  "topics": [
+                    "exposure"
+                  ]
+                }
+              ],
+              "outOfScopeItems": [
+                {
+                  "id": "O1",
+                  "name": "Payments, RAG, external documents and cloud infrastructure",
+                  "reason": "Not specified; do not invent them as confirmed components."
+                },
+                {
+                  "id": "O2",
+                  "name": "Actual production application",
+                  "reason": "This is a fictional architecture and small executable control sketches."
+                }
+              ]
+            }
+          }
+        }
+      ]
+    }
+  ],
+  "controls": [
+    {
+      "bom-ref": "control-c1-authorize-reads-and-address-changes-1",
+      "name": "C1 · Authorize reads and address changes",
+      "status": "recommended",
+      "description": "Check trusted caller ownership for both GET and PATCH. Accept only delivery_address and only while the order is processing; reject writes once dispatch begins. TEST: Alice may read/update A-101 before dispatch, but cannot read or change B-202. A rejected write leaves all data unchanged. Removing the guard must break both cross-owner regression tests. Production must enforce status and write atomically. See tests/test_authorization.py.",
+      "category": "preventive",
+      "properties": [
+        {
+          "name": "precogly:control-functions",
+          "value": "preventive"
+        },
+        {
+          "name": "precogly:control-nature",
+          "value": "technical"
+        }
+      ],
+      "mitigations": [
+        "threat-t1-customer-reads-or-redirects-another-o-1"
+      ]
+    },
+    {
+      "bom-ref": "control-c2-check-trusted-permissions-per-admin-o-2",
+      "name": "C2 · Check trusted permissions per admin operation",
+      "status": "recommended",
+      "description": "Validate identity and required permission at every privileged operation; use trusted server permissions, deny by default. TEST: a customer is denied even with role=admin; an authorized operator succeeds. Remove the guard and confirm the negative test fails. Network restriction and MFA are additional layers.",
+      "category": "preventive",
+      "properties": [
+        {
+          "name": "precogly:control-functions",
+          "value": "preventive"
+        },
+        {
+          "name": "precogly:control-nature",
+          "value": "technical"
+        }
+      ],
+      "mitigations": [
+        "threat-t2-customer-invokes-an-admin-operation-2"
+      ]
+    }
+  ],
+  "threats": {
+    "threats": [
+      {
+        "bom-ref": "threat-t1-customer-reads-or-redirects-another-o-1",
+        "name": "T1 · Customer reads or redirects another order",
+        "description": "Alice obtains Bob’s order ID. Missing object-level authorization on GET exposes his order; missing authorization on PATCH lets her change his delivery address before dispatch and potentially redirect the parcel. Information disclosure and tampering are two consequences of the same authorization weakness. This is stipulated in the teaching scenario.",
+        "categories": [
+          {
+            "taxonomy": "stride",
+            "id": "tampering",
+            "name": "Tampering"
+          }
+        ],
+        "affectedAssets": [
+          "asset-customer-api-3"
+        ],
+        "mitigations": [
+          "control-c1-authorize-reads-and-address-changes-1"
+        ]
+      },
+      {
+        "bom-ref": "threat-t2-customer-invokes-an-admin-operation-2",
+        "name": "T2 · Customer invokes an admin operation",
+        "description": "A normal customer calls an administrative backend operation directly and supplies role=admin in the body. If the operation relies on UI hiding or client role claims, it grants administrative access. Impact: unauthorized changes and access. Opening scenario assumes weak access control.",
+        "categories": [
+          {
+            "taxonomy": "stride",
+            "id": "elevation-of-privilege",
+            "name": "Elevation of Privilege"
+          }
+        ],
+        "affectedAssets": [
+          "asset-admin-panel-api-4"
+        ],
+        "mitigations": [
+          "control-c2-check-trusted-permissions-per-admin-o-2"
+        ]
+      }
+    ],
+    "scenarios": [
+      {
+        "bom-ref": "scenario-t1-customer-reads-or-redirects-another-o-1",
+        "threat": "threat-t1-customer-reads-or-redirects-another-o-1",
+        "affectedAssets": [
+          "asset-customer-api-3"
+        ],
+        "riskScore": {
+          "level": "high"
+        },
+        "properties": [
+          {
+            "name": "precogly:threat-status",
+            "value": "mitigate"
+          },
+          {
+            "name": "precogly:decision-rationale",
+            "value": "Proposed control for a fictional system; executable sketches are not deployment evidence."
+          }
+        ]
+      },
+      {
+        "bom-ref": "scenario-t2-customer-invokes-an-admin-operation-2",
+        "threat": "threat-t2-customer-invokes-an-admin-operation-2",
+        "affectedAssets": [
+          "asset-admin-panel-api-4"
+        ],
+        "riskScore": {
+          "level": "high"
+        },
+        "properties": [
+          {
+            "name": "precogly:threat-status",
+            "value": "mitigate"
+          },
+          {
+            "name": "precogly:decision-rationale",
+            "value": "Proposed control for a fictional system; executable sketches are not deployment evidence."
+          }
+        ]
+      }
+    ]
+  }
+}
