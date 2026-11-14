@@ -2,12 +2,12 @@
   {
     "title": "Your Threat Model Has an Opponent",
     "kind": "title",
-    "body": "<h1>Your threat model<br>has an <em>opponent.</em></h1><div class=\"title-route\"><article class=\"opponent-node\"><b>ATTACKER</b><p>Chooses a route.</p></article><span>→</span><article><b>CUSTOMER API</b><p>Enforces permission.</p></article><span>→</span><article><b>ORDERS DB</b><p>Holds what matters.</p></article></div><p class=\"title-question\">Which route still works after your fix?</p>"
+    "body": "<h1>Your threat model<br>has an <em>opponent.</em></h1><div class=\"title-route\"><article class=\"opponent-node\"><b>ATTACKER</b><p>Chooses a route.</p></article><span>→</span><article><b>CUSTOMER API</b><p>Enforces permission.</p></article><span>→</span><article><b>ORDERS DB</b><p>Holds what matters.</p></article></div>"
   },
   {
     "title": "Your threat model has an opponent. Literally.",
     "kind": "standard",
-    "body": "<h2>Your threat model has an opponent.<br>Literally.</h2><div class=\"meme-grid\"><article class=\"jensen-card\"><span class=\"meme-label\">MEME</span><img class=\"portrait\" src=\"assets/web/jensen.jpg\" alt=\"Jensen Huang portrait\"><img class=\"cry-sticker\" src=\"assets/web/crying.svg\" alt=\"Crying reaction sticker\"><div class=\"speech\">“I should have created<br>a threat model.”</div></article><article class=\"apt-card\"><img src=\"assets/web/detective.svg\" alt=\"Generic fictional spy icon\"><strong>APT operator</strong><p>“Thanks for the<br>unmodelled trust boundary.”</p></article></div>"
+    "body": "<h2>Your threat model has an opponent.<br>Literally.</h2><div class=\"meme-grid\"><article class=\"jensen-card\"><img class=\"portrait\" src=\"assets/web/jensen.jpg\" alt=\"Jensen Huang portrait\"><img class=\"cry-sticker\" src=\"assets/web/crying.svg\" alt=\"Crying reaction sticker\"><div class=\"speech\">“I should have created<br>a threat model.”</div></article><article class=\"apt-card\"><img src=\"assets/web/detective.svg\" alt=\"Generic fictional spy icon\"><strong>APT operator</strong><p>“Thanks for the<br>unmodelled trust boundary.”</p></article></div>"
   },
   {
     "title": "Two vulnerabilities. Which first?",
@@ -27,7 +27,7 @@
   {
     "title": "Put yourself in the attacker’s shoes",
     "kind": "standard",
-    "body": "<h2>Put yourself in the attacker’s shoes.</h2><div class=\"attacker-layout\"><img class=\"shoes-photo\" src=\"assets/web/othershoes.jpg\" alt=\"Walking in someone else’s shoes meme supplied by the presenter\"><div class=\"attacker-choice\"><div class=\"attacker-chip\">ATTACKER</div><div class=\"branch-arrows\">↙ <span>↘</span></div><div class=\"route-pair\"><article><h3>Customer API</h3><p>Read an order.<br>Redirect a delivery.</p></article><article><h3>Admin panel</h3><p>Reach privileged<br>operations.</p></article></div><div class=\"choice-question\">Which route still works?</div></div></div>"
+    "body": "<h2>Put yourself in the attacker’s shoes.</h2><div class=\"attacker-layout\"><img class=\"shoes-photo\" src=\"assets/web/othershoes.jpg\" alt=\"Walking in someone else’s shoes meme supplied by the presenter\"><div class=\"attacker-choice\"><div class=\"attacker-chip\">ATTACKER</div><div class=\"branch-arrows\">↙ <span>↘</span></div><div class=\"route-pair\"><article><h3>Customer API</h3><p>Read an order.<br>Redirect a delivery.</p></article><article><h3>Admin panel</h3><p>Reach privileged<br>operations.</p></article></div></div></div>"
   },
   {
     "title": "Loss to the shop",
@@ -52,7 +52,7 @@
   {
     "title": "Meet OWASP Precogly",
     "kind": "standard",
-    "body": "<h2>Meet OWASP Precogly.</h2><div class=\"intro-grid\"><div class=\"tool-copy\"><h3>A canvas.<br>With an argument<br>attached.</h3><div>Architecture + flows</div><div>Threats + controls</div><div>Save + review + revise</div></div><div class=\"photo-meme\"><div class=\"photo-row\"><div class=\"dragon-crop\"><img src=\"assets/web/dragon-user.webp\" alt=\"Dragon from the supplied meme\"></div><strong>OWASP<br>Precogly</strong></div><div class=\"photo-row\"><img class=\"dog-photo\" src=\"assets/web/dog.jpg\" alt=\"Labrador dog photograph\"><strong>OWASP<br>Threat Dragon</strong></div></div></div>"
+    "body": "<h2>Meet OWASP Precogly.</h2><div class=\"intro-grid\"><div class=\"tool-copy\"><h3>An open-source,<br>enterprise-grade<br>threat modelling tool.</h3><div>Architecture + flows</div><div>Threats + controls</div><div>Save + review + revise</div></div><div class=\"photo-meme\"><div class=\"photo-row\"><div class=\"dragon-crop\"><img src=\"assets/web/dragon-user.webp\" alt=\"Dragon from the supplied meme\"></div><strong>OWASP<br>Precogly</strong></div><div class=\"photo-row\"><img class=\"dog-photo\" src=\"assets/web/dog.jpg\" alt=\"Labrador dog photograph\"><strong>OWASP<br>Threat Dragon</strong></div></div></div>"
   },
   {
     "title": "The model I can inspect",
