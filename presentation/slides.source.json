@@ -5,9 +5,9 @@
     "body": "<h1>Your threat model<br>has an <em>opponent.</em></h1><div class=\"title-route\"><article class=\"opponent-node\"><b>ATTACKER</b><p>Chooses a route.</p></article><span>→</span><article><b>CUSTOMER API</b><p>Enforces permission.</p></article><span>→</span><article><b>ORDERS DB</b><p>Holds what matters.</p></article></div>"
   },
   {
-    "title": "Your threat model has an opponent. Literally.",
-    "kind": "standard",
-    "body": "<h2>Your threat model has an opponent.<br>Literally.</h2><div class=\"meme-grid\"><article class=\"jensen-card\"><img class=\"portrait\" src=\"assets/web/jensen.jpg\" alt=\"Jensen Huang portrait\"><img class=\"cry-sticker\" src=\"assets/web/crying.svg\" alt=\"Crying reaction sticker\"><div class=\"speech\">“I should have created<br>a threat model.”</div></article><article class=\"apt-card\"><img src=\"assets/web/detective.svg\" alt=\"Generic fictional spy icon\"><strong>APT operator</strong><p>“Thanks for the<br>unmodelled trust boundary.”</p></article></div>"
+    "title": "About me — Siddharth Bansal",
+    "kind": "intro-image-slide",
+    "body": "<img class=\"intro-image\" src=\"assets/web/intro-user.png\" alt=\"About me: Siddharth Bansal. Intern at FOSS United; co-founder, FOSS USAR. Learner, builder, contributor.\">"
   },
   {
     "title": "Two vulnerabilities. Which first?",
@@ -63,6 +63,11 @@
     "title": "The argument is the threat model",
     "kind": "quote-slide dark-quote",
     "body": "<blockquote>The argument<br>is the <em>threat model.</em></blockquote>"
+  },
+  {
+    "title": "Why do I know Precogly so well?",
+    "kind": "standard contributor-slide",
+    "body": "<h2>Why do I know Precogly so well?</h2><div class=\"contributor-grid\"><div class=\"contributor-copy\"><h3>I contribute<br>to Precogly.</h3><p>Code. Fixes. Documentation.</p><div class=\"contributor-caption\">Yes, this is the self-plug.</div></div><img src=\"assets/web/obama-user.webp\" alt=\"Obama awarding a medal to himself: a self-congratulatory meme\"></div>"
   },
   {
     "title": "Secure the path, not just the finding",

@@ -12,3 +12,6 @@ The system graphics are original editable SVG diagrams. Layout takes inspiration
 - Dog photo: Elf, derivative contributions by Djmirko/FT2, [YellowLabradorLooking new.jpg](https://commons.wikimedia.org/wiki/File:YellowLabradorLooking_new.jpg), [CC BY-SA 3.0](https://creativecommons.org/licenses/by-sa/3.0/). The original file is retained; the displayed dog panel is cropped by CSS. The dog-panel adaptation is offered under the same CC BY-SA 3.0 license.
 
 - Attacker-shoes meme: user-supplied `OTHERSHOES.jpg`, retained without altering its embedded illustration credit (Frits Ahlefeldt). No open-license claim is made for the supplied composite.
+
+- Presenter introduction: user-supplied `intro.png`, displayed as provided.
+- Self-award meme: user-supplied `OBAMA.webp`, an edited image used for the contributor disclosure joke. No open-license claim is made for these supplied assets.
